@@ -1,11 +1,12 @@
+import { $blueText, $dimText, $screenContentContainer } from "../../core/styles/generalStyle"
 import React, { FC } from "react"
-import { AppStackScreenProps } from "../../navigators/AppNavigator"
-
-import { Screen } from "../../components/Screen"
-import { Text } from "../../components/Text"
 import { TextStyle, View, ViewStyle } from "react-native"
 import { colors, spacing } from "../../theme"
-import { Button } from "../../components/Button"
+
+import { AppStackScreenProps } from "../../navigators/AppNavigator"
+import { Button } from "../../components/general/Button"
+import { Screen } from "../../components/general/Screen"
+import { Text } from "../../components/general/Text"
 
 interface LoginScreenProps extends AppStackScreenProps<"Login"> {}
 
@@ -18,34 +19,19 @@ export const LoginScreen: FC<LoginScreenProps> = function LoginScreen(_props) {
 
   return (
     <Screen
-      preset="auto"
-      contentContainerStyle={$screenContentContainer}
+      preset={"auto"}
       safeAreaEdges={["top", "bottom"]}
+      contentContainerStyle={[$screenContentContainer, { justifyContent: "space-between" }]}
     >
       <View>
-        <Text text={"Welcome to"} preset="heading" style={$signIn} />
-        <Text text={"finflow"} preset="monoHeading" style={$appName} />
+        <Text text={"finflow"} preset={"monoSemiBold"} style={$blueText} />
+        <Text text={"An expense tracker app."} preset={"mono"} size={"xs"} style={$dimText} />
       </View>
-      <Button text="Continue" style={$tapButton} preset="reversed" onPress={login} />
+      <Button text={"Continue"} style={$loginButton} preset={"default"} onPress={login} />
     </Screen>
   )
 }
 
-const $screenContentContainer: ViewStyle = {
-  flex: 1,
-  paddingVertical: spacing.xxl,
-  paddingHorizontal: spacing.lg,
-  justifyContent: "space-between",
-}
-
-const $signIn: TextStyle = {
-  marginBottom: spacing.xs,
-}
-
-const $appName: TextStyle = {
-  color: colors.palette.blue800,
-}
-
-const $tapButton: ViewStyle = {
+const $loginButton: ViewStyle = {
   marginTop: spacing.xs,
 }

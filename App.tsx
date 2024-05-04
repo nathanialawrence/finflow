@@ -5,41 +5,22 @@
  * @format
  */
 
-import React from "react"
-import type { PropsWithChildren } from "react"
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-  ViewStyle,
-} from "react-native"
-import { GestureHandlerRootView } from "react-native-gesture-handler"
-import { initialWindowMetrics, SafeAreaProvider } from "react-native-safe-area-context"
-
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from "react-native/Libraries/NewAppScreen"
-import { AppNavigator } from "./app/navigators/AppNavigator"
-import { useNavigationPersistence } from "./app/navigators/navigationUtilities"
 import * as storage from "./app/utils/storage"
+
+import { SafeAreaProvider, initialWindowMetrics } from "react-native-safe-area-context"
+import { persistor, store } from "./app/redux/store/store"
+
+import { AppNavigator } from "./app/navigators/AppNavigator"
+import { GestureHandlerRootView } from "react-native-gesture-handler"
+import { PersistGate } from "redux-persist/integration/react"
+import { Provider } from "react-redux"
+import React from "react"
+import { ViewStyle } from "react-native"
+import { useNavigationPersistence } from "./app/navigators/navigationUtilities"
 
 export const NAVIGATION_PERSISTENCE_KEY = "NAVIGATION_STATE"
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === "dark"
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  }
-
   const {
     initialNavigationState,
     onNavigationStateChange,
@@ -47,14 +28,18 @@ function App(): React.JSX.Element {
   } = useNavigationPersistence(storage, NAVIGATION_PERSISTENCE_KEY)
 
   return (
-    <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-      <GestureHandlerRootView style={$container}>
-        <AppNavigator
-          initialState={initialNavigationState}
-          onStateChange={onNavigationStateChange}
-        />
-      </GestureHandlerRootView>
-    </SafeAreaProvider>
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+        <SafeAreaProvider initialMetrics={initialWindowMetrics}>
+          <GestureHandlerRootView style={$container}>
+            <AppNavigator
+              initialState={initialNavigationState}
+              onStateChange={onNavigationStateChange}
+            />
+          </GestureHandlerRootView>
+        </SafeAreaProvider>
+      </PersistGate>
+    </Provider>
   )
 }
 

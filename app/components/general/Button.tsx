@@ -1,4 +1,3 @@
-import React, { ComponentType } from "react"
 import {
   Pressable,
   PressableProps,
@@ -7,8 +6,9 @@ import {
   TextStyle,
   ViewStyle,
 } from "react-native"
-import { colors, spacing, typography } from "../theme"
+import React, { ComponentType } from "react"
 import { Text, TextProps } from "./Text"
+import { colors, spacing, typography } from "../../theme"
 
 type Presets = keyof typeof $viewPresets
 
@@ -191,7 +191,7 @@ const $viewPresets = {
     {
       borderWidth: 1,
       borderColor: colors.palette.neutral400,
-      backgroundColor: colors.palette.neutral100,
+      backgroundColor: colors.palette.neutral200,
     },
   ] as StyleProp<ViewStyle>,
 

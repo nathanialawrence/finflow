@@ -1,5 +1,4 @@
-import { useScrollToTop } from "@react-navigation/native"
-import React, { useRef, useState } from "react"
+import { ExtendedEdge, useSafeAreaInsetsStyle } from "../../utils/useSafeAreaInsetsStyle"
 import {
   KeyboardAvoidingView,
   KeyboardAvoidingViewProps,
@@ -14,8 +13,10 @@ import {
   View,
   ViewStyle,
 } from "react-native"
-import { ExtendedEdge, useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import { colors } from "../theme/colors"
+import React, { useRef, useState } from "react"
+
+import { colors } from "../../theme/colors"
+import { useScrollToTop } from "@react-navigation/native"
 
 interface BaseScreenProps {
   /**

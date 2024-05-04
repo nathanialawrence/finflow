@@ -55,6 +55,10 @@ const palette = {
 
   darkBlue950: "#272D4E",
 
+  income: "#5AA58E",
+
+  expense: "#F0531C",
+
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
 } as const

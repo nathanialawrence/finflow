@@ -1,7 +1,7 @@
 import React from "react"
 import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
-import { typography } from "../theme/typography"
-import { colors } from "../theme/colors"
+import { typography } from "../../theme/typography"
+import { colors } from "../../theme/colors"
 
 type Sizes = keyof typeof $sizeStyles
 type Weights = keyof typeof typography.primary
@@ -87,11 +87,25 @@ const $monoStyle: StyleProp<TextStyle> = [
   { color: colors.text, fontFamily: typography.secondary.medium },
 ]
 
+const $monoStyleSemiBold: StyleProp<TextStyle> = [
+  $sizeStyles.sm,
+  $fontWeightStyles.normal,
+  { color: colors.text, fontFamily: typography.secondary.semiBold },
+]
+
+const $monoStyleBold: StyleProp<TextStyle> = [
+  $sizeStyles.sm,
+  $fontWeightStyles.normal,
+  { color: colors.text, fontFamily: typography.secondary.bold },
+]
+
 const $presets = {
   default: $baseStyle,
   bold: [$baseStyle, $fontWeightStyles.bold] as StyleProp<TextStyle>,
   heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.bold] as StyleProp<TextStyle>,
-  monoHeading: [$monoStyle, $sizeStyles.xxl] as StyleProp<TextStyle>,
+  mono: [$monoStyle, $sizeStyles.xxl] as StyleProp<TextStyle>,
+  monoBold: [$monoStyleBold, $sizeStyles.xxl] as StyleProp<TextStyle>,
+  monoSemiBold: [$monoStyleSemiBold, $sizeStyles.xxl] as StyleProp<TextStyle>,
   subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
   formLabel: [$baseStyle, $fontWeightStyles.medium] as StyleProp<TextStyle>,
   formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,

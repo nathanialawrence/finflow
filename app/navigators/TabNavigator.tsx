@@ -1,14 +1,17 @@
-import { BottomTabScreenProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import { CompositeScreenProps } from "@react-navigation/native"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
-import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { colors, spacing, typography } from "../theme"
-import { HomeScreen } from "../screens/home/HomeScreen"
-import { Icon } from "../components/Icon"
+import { BottomTabScreenProps, createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { TextStyle, ViewStyle } from "react-native"
+import { colors, spacing, typography } from "../theme"
+
+import { CompositeScreenProps } from "@react-navigation/native"
+import { HomeScreen } from "../screens/home/HomeScreen"
+import { Icon } from "../components/general/Icon"
+import { TransactionsScreen } from "../screens/transactions/TransactionsScreen"
+import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export type TabNavigatorParamList = {
   Home: undefined
+  Transactions: undefined
 }
 
 /**
@@ -55,6 +58,16 @@ export function TabNavigator() {
           ),
         }}
       />
+      <Tab.Screen
+        name="Transactions"
+        component={TransactionsScreen}
+        options={{
+          tabBarLabel: "Transactions",
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="components" color={focused ? colors.tint : undefined} size={30} />
+          ),
+        }}
+      />
     </Tab.Navigator>
   )
 }
@@ -72,4 +85,5 @@ const $tabBarLabel: TextStyle = {
   fontSize: 12,
   fontFamily: typography.secondary.medium,
   lineHeight: 16,
+  color: colors.textDim,
 }

@@ -5,11 +5,12 @@ import {
   NavigatorScreenParams,
 } from "@react-navigation/native"
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack"
-import { useColorScheme } from "react-native"
-import { navigationRef } from "./navigationUtilities"
-import { colors } from "../theme/colors"
-import { LoginScreen } from "../screens/authentication/LoginScreen"
 import { TabNavigator, TabNavigatorParamList } from "./TabNavigator"
+
+import { LoginScreen } from "../screens/authentication/LoginScreen"
+import { colors } from "../theme/colors"
+import { navigationRef } from "./navigationUtilities"
+import { useColorScheme } from "react-native"
 
 export type AppStackParamList = {
   Login: undefined
@@ -31,7 +32,10 @@ const Stack = createNativeStackNavigator<AppStackParamList>()
 const AppStack = function AppStack() {
   return (
     <Stack.Navigator
-      screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
+      screenOptions={{
+        headerShown: false,
+        navigationBarColor: colors.background,
+      }}
       initialRouteName={"Login"}
     >
       <Stack.Screen name="Login" component={LoginScreen} />
