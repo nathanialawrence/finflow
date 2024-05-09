@@ -24,7 +24,7 @@ export const LoginScreen: FC<LoginScreenProps> = function LoginScreen(_props) {
       contentContainerStyle={[$screenContentContainer, { justifyContent: "space-between" }]}
     >
       <View>
-        <Text text={"finflow"} preset={"monoSemiBold"} style={$blueText} />
+        <Text text={"finflo~"} preset={"monoSemiBold"} style={$blueText} />
         <Text text={"An expense tracker app."} preset={"mono"} size={"xs"} style={$dimText} />
       </View>
       <Button text={"Continue"} style={$loginButton} preset={"default"} onPress={login} />

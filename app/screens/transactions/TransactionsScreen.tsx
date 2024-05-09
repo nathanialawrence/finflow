@@ -1,4 +1,3 @@
-import { FlatList, View } from "react-native"
 import React, { FC } from "react"
 import {
   Transaction,
@@ -8,15 +7,16 @@ import {
 import { useDispatch, useSelector } from "react-redux"
 
 import { $screenContentContainer } from "../../core/styles/generalStyle"
-import { Button } from "../../components/general/Button"
+import { AddTransactionButton } from "../../components/custom/AddTransactionButton"
+import { FlatList } from "react-native"
 import { Screen } from "../../components/general/Screen"
 import { TabNavigatorScreenProps } from "../../navigators/TabNavigator"
 import { Text } from "../../components/general/Text"
-import { addTransaction } from "../../redux/actions/transactionsActions"
-import uuid from "react-native-uuid"
+import { TransactionItem } from "../../components/custom/TransactionItem"
 
 export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
   function TransactionsScreen(_props) {
+    const { navigation } = _props
     const dispatch = useDispatch()
     const transactions: Transaction[] = useSelector(
       (state: any) => state.transactionsReducer.transactions,
@@ -32,24 +32,53 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
         title: "Lunch with friends",
         notes: "Had a great time catching up with old friends",
       },
+      {
+        id: "1234567891",
+        type: TransactionType.Income,
+        category: TransactionCategory.Food,
+        amount: 25.99,
+        date: "2023-03-15",
+        title: "Salary",
+        notes: "Testings",
+      },
+      {
+        id: "1234567892",
+        type: TransactionType.Expense,
+        category: TransactionCategory.Food,
+        amount: 25.99,
+        date: "2023-04-15",
+        title: "Lunch with friends",
+      },
+      {
+        id: "1234567893",
+        type: TransactionType.Income,
+        category: TransactionCategory.Food,
+        amount: 25.99,
+        date: "2023-05-15",
+        title: "Salary",
+        notes: "Had a great time catching up with old friends",
+      },
     ]
 
+    const onAddTransaction = () => {
+      navigation.navigate("AddTransaction")
+    }
+
     return (
-      <Screen preset={"auto"} contentContainerStyle={$screenContentContainer}>
-        <Text text={"Transactions"} preset={"monoSemiBold"} size={"xl"} />
+      <Screen preset={"fixed"} contentContainerStyle={$screenContentContainer}>
         <FlatList
           data={dummyTransaction}
           contentContainerStyle={{ flexGrow: 1 }}
           keyExtractor={(item) => item.id}
-          renderItem={({ item }) => {
-            return (
-              <View style={{ paddingVertical: 6, borderWidth: 1, backgroundColor: "pink" }}>
-                <Text text={item.title} preset={"mono"} size="xs" />
-              </View>
-            )
+          ListHeaderComponent={() => {
+            return <Text text={"Transactions"} preset={"monoSemiBold"} size={"xl"} />
+          }}
+          ListHeaderComponentStyle={{ marginBottom: 8 }}
+          renderItem={({ index, item }) => {
+            return <TransactionItem index={index} data={dummyTransaction} item={item} />
           }}
         />
-        <Button
+        {/* <Button
           text="Test"
           onPress={() => {
             const newTransaction = {
@@ -63,7 +92,8 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
             }
             dispatch(addTransaction(newTransaction))
           }}
-        />
+        /> */}
+        <AddTransactionButton onPress={onAddTransaction} />
       </Screen>
     )
   }

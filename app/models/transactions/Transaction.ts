@@ -1,6 +1,6 @@
 export enum TransactionType {
-  Expense = "Expense",
-  Income = "Income",
+  Expense = "expense",
+  Income = "income",
 }
 
 export enum TransactionCategory {
@@ -22,5 +22,5 @@ export interface Transaction {
   amount: number
   date: string
   title: string
-  notes: string
+  notes?: string
 }

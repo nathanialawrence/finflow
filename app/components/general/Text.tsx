@@ -2,6 +2,7 @@ import React from "react"
 import { StyleProp, Text as RNText, TextProps as RNTextProps, TextStyle } from "react-native"
 import { typography } from "../../theme/typography"
 import { colors } from "../../theme/colors"
+import { spacing } from "../../theme"
 
 type Sizes = keyof typeof $sizeStyles
 type Weights = keyof typeof typography.primary
@@ -69,6 +70,7 @@ const $sizeStyles = {
   sm: { fontSize: 16, lineHeight: 24 } satisfies TextStyle,
   xs: { fontSize: 14, lineHeight: 21 } satisfies TextStyle,
   xxs: { fontSize: 12, lineHeight: 18 } satisfies TextStyle,
+  xxxs: { fontSize: 10, lineHeight: 16 } satisfies TextStyle,
 }
 
 const $fontWeightStyles = Object.entries(typography.primary).reduce((acc, [weight, fontFamily]) => {
@@ -99,6 +101,26 @@ const $monoStyleBold: StyleProp<TextStyle> = [
   { color: colors.text, fontFamily: typography.secondary.bold },
 ]
 
+const $formLabelStyle: StyleProp<TextStyle> = [
+  {
+    fontFamily: typography.secondary.medium,
+    fontSize: 14,
+    marginBottom: spacing.xs,
+    color: colors.text,
+  },
+]
+
+const $textFieldValue: StyleProp<TextStyle> = [
+  {
+    fontFamily: typography.secondary.normal,
+    color: colors.text,
+    fontSize: 14,
+    height: 24,
+    paddingVertical: 0,
+    paddingHorizontal: 0,
+  },
+]
+
 const $presets = {
   default: $baseStyle,
   bold: [$baseStyle, $fontWeightStyles.bold] as StyleProp<TextStyle>,
@@ -107,6 +129,7 @@ const $presets = {
   monoBold: [$monoStyleBold, $sizeStyles.xxl] as StyleProp<TextStyle>,
   monoSemiBold: [$monoStyleSemiBold, $sizeStyles.xxl] as StyleProp<TextStyle>,
   subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
-  formLabel: [$baseStyle, $fontWeightStyles.medium] as StyleProp<TextStyle>,
+  formLabel: [$formLabelStyle] as StyleProp<TextStyle>,
   formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,
+  textFieldValue: [$textFieldValue] as StyleProp<TextStyle>,
 }

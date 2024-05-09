@@ -7,6 +7,7 @@ import {
 import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navigation/native-stack"
 import { TabNavigator, TabNavigatorParamList } from "./TabNavigator"
 
+import { AddTransactionScreen } from "../screens/transactions/AddTransactionScreen"
 import { LoginScreen } from "../screens/authentication/LoginScreen"
 import { colors } from "../theme/colors"
 import { navigationRef } from "./navigationUtilities"
@@ -15,6 +16,7 @@ import { useColorScheme } from "react-native"
 export type AppStackParamList = {
   Login: undefined
   Tab: NavigatorScreenParams<TabNavigatorParamList>
+  AddTransaction: undefined
 }
 
 /**
@@ -40,6 +42,7 @@ const AppStack = function AppStack() {
     >
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Tab" component={TabNavigator} />
+      <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
     </Stack.Navigator>
   )
 }

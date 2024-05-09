@@ -112,6 +112,7 @@ export const iconRegistry = {
   x: require("../../assets/icons/x.png"),
   income: require("../../assets/icons/income.png"),
   expenses: require("../../assets/icons/expenses.png"),
+  wallet: require("../../assets/icons/wallet.png"),
 }
 
 const $imageStyleBase: ImageStyle = {
