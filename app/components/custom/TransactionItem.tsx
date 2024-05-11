@@ -5,6 +5,7 @@ import React from "react"
 import { Text } from "../general/Text"
 import { View } from "react-native"
 import { colors } from "../../theme"
+import moment from "moment"
 
 interface TransactionItemProps {
   index: number
@@ -13,15 +14,19 @@ interface TransactionItemProps {
 }
 
 export function TransactionItem(props: TransactionItemProps) {
-  const isSameDay = props.data[props.index - 1]
-    ? props.item.date == props.data[props.index - 1].date
-    : false
+  const { index, data, item } = props
+  const isSameDay = data[index - 1] ? item.date == data[index - 1].date : false
 
   return (
     <>
       {!isSameDay && (
         <View style={{ marginVertical: 8 }}>
-          <Text text={"Sunday, May 5"} preset={"mono"} size={"xs"} style={$dimText} />
+          <Text
+            text={moment(item.date).format("MMM Do YY")}
+            preset={"mono"}
+            size={"xs"}
+            style={$dimText}
+          />
         </View>
       )}
       <View
@@ -30,9 +35,7 @@ export function TransactionItem(props: TransactionItemProps) {
           paddingHorizontal: 8,
           paddingVertical: 6,
           borderColor:
-            props.item.type == TransactionType.Expense
-              ? colors.palette.expense
-              : colors.palette.income,
+            item.type == TransactionType.Expense ? colors.palette.expense : colors.palette.income,
           flexDirection: "row",
           justifyContent: "space-between",
           alignItems: "center",
@@ -45,14 +48,9 @@ export function TransactionItem(props: TransactionItemProps) {
             marginRight: 4,
           }}
         >
-          <Text text={props.item.title} preset={"mono"} size={"xs"} />
-          {props.item.notes && (
-            <Text
-              text={`Notes: ${props.item.notes}`}
-              preset={"mono"}
-              size={"xxxs"}
-              style={$dimText}
-            />
+          <Text text={item.title} preset={"mono"} size={"xs"} />
+          {item.notes && (
+            <Text text={`Notes: ${item.notes}`} preset={"mono"} size={"xxxs"} style={$dimText} />
           )}
         </View>
         <View style={{ alignItems: "flex-end", marginLeft: 4 }}>
@@ -67,7 +65,7 @@ export function TransactionItem(props: TransactionItemProps) {
                 marginRight: 4,
               }}
             />
-            <Text text={props.item.category} preset={"mono"} size={"xxxs"} style={$dimText} />
+            <Text text={item.category} preset={"mono"} size={"xxxs"} style={$dimText} />
           </View>
         </View>
       </View>

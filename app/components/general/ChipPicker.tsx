@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { colors, spacing, typography } from "../../theme"
 
+import { LabelText } from "../custom/LabelText"
 import { Text } from "./Text"
 
 export interface ChipPickerItem {
@@ -12,25 +13,28 @@ export interface ChipPickerItem {
 
 interface ChipPickerProps {
   label: string
+  required?: boolean
   data: ChipPickerItem[]
   value?: ChipPickerItem
-  onSelect: (value: ChipPickerItem) => void
+  onSelect?: (value: ChipPickerItem) => void
   selectedColor?: string
 }
 
 export function ChipPicker(props: ChipPickerProps) {
+  const { label, required = false, data, value, onSelect, selectedColor, ...rest } = props
+
   const [selectedItem, setSelectedItem] = useState<ChipPickerItem>()
 
   const handleSelect = (item: ChipPickerItem) => {
     setSelectedItem(item)
-    props.onSelect(item)
+    onSelect && onSelect(item)
   }
 
   return (
     <View>
-      <Text preset="formLabel" text={props.label} />
+      <LabelText label={label} required={required} />
       <View style={$container}>
-        {props.data.map((item) => (
+        {data.map((item) => (
           <TouchableOpacity
             key={item.value}
             style={[

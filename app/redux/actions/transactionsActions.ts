@@ -4,6 +4,7 @@ export enum TransactionActionType {
   AddTransaction = "ADD_TRANSACTION",
   EditTransaction = "EDIT_TRANSACTION",
   DeleteTransaction = "DELETE_TRANSACTION",
+  DeleteAllTransactions = "DELETE_ALL_TRANSACTIONS",
 }
 
 export const addTransaction = (transaction: Transaction) => ({
@@ -19,4 +20,8 @@ export const editTransaction = (transaction: Transaction) => ({
 export const deleteTransaction = (id: string) => ({
   type: TransactionActionType.DeleteTransaction,
   payload: id,
+})
+
+export const deleteAllTransactions = () => ({
+  type: TransactionActionType.DeleteAllTransactions,
 })

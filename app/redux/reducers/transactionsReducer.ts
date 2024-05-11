@@ -35,6 +35,8 @@ const transactionsReducer = (
         ...state,
         transactions: state.transactions.filter((transaction) => transaction.id !== action.payload),
       }
+    case TransactionActionType.DeleteAllTransactions:
+      return { ...state, transactions: [] }
     default:
       return state
   }

@@ -1,8 +1,13 @@
 import { TextStyle, ViewStyle } from "react-native"
-import { colors, spacing } from "../../theme"
+import { colors, spacing, typography } from "../../theme"
+
+export const $rowContainer: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+}
 
 export const $screenContentContainer: ViewStyle = {
-  flex: 1,
+  flexGrow: 1,
   paddingVertical: spacing.xxl,
   paddingHorizontal: spacing.lg,
 }
@@ -18,4 +23,10 @@ export const $blueText: TextStyle = {
 
 export const $dimText: TextStyle = {
   color: colors.textDim,
+}
+
+export const $labelStyle: TextStyle = {
+  fontFamily: typography.secondary.medium,
+  fontSize: 14,
+  marginBottom: spacing.xs,
 }

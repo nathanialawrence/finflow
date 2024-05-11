@@ -11,6 +11,8 @@ import {
 import { Text, TextProps } from "./Text"
 import { colors, spacing, typography } from "../../theme"
 
+import { LabelText } from "../custom/LabelText"
+
 export interface TextFieldAccessoryProps {
   style: StyleProp<any>
   status: TextFieldProps["status"]
@@ -67,6 +69,8 @@ export interface TextFieldProps extends Omit<TextInputProps, "ref"> {
    * Note: It is a good idea to memoize this.
    */
   LeftAccessory?: ComponentType<TextFieldAccessoryProps>
+
+  required?: boolean
 }
 
 /**
@@ -88,6 +92,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
     style: $inputStyleOverride,
     containerStyle: $containerStyleOverride,
     inputWrapperStyle: $inputWrapperStyleOverride,
+    required = false,
     ...TextInputProps
   } = props
   const input = useRef<TextInput>(null)
@@ -140,7 +145,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
       onPress={focusInput}
       accessibilityState={{ disabled }}
     >
-      {!!label && <Text preset="formLabel" text={label} {...LabelTextProps} style={$labelStyles} />}
+      {!!label && <LabelText label={label} required={required} />}
 
       <View style={$inputWrapperStyles}>
         {!!LeftAccessory && (
