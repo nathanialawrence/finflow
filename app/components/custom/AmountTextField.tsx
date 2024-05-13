@@ -14,12 +14,11 @@ interface AmountTextFieldProps {
 export function AmountTextField(props: AmountTextFieldProps) {
   const { label, required = false, placeholder, onChangeText, ...rest } = props
 
-  const [originalValue, setOriginalValue] = useState(0)
   const [formattedValue, setFormattedValue] = useState("")
 
   const handleTextChange = (text: string) => {
-    const numericValue = text.replace(/\./g, "") // remove dots
-    setOriginalValue(parseInt(numericValue, 10)) // update original value
+    const numericValue = text.replace(/[.,-]/g, "").replace(/ /g, "") // remove dots, commas, and spaces
+    const originalValue = parseInt(numericValue, 10)
     const formattedText = numericValue.replace(/\B(?=(\d{3})+(?!\d))/g, ".") // format with dots
     setFormattedValue(formattedText) // update formatted value
     onChangeText && onChangeText(originalValue)
@@ -39,6 +38,7 @@ export function AmountTextField(props: AmountTextFieldProps) {
           style={{ marginVertical: spacing.xs, marginLeft: spacing.sm }}
         />
       )}
+      keyboardType="number-pad"
     />
   )
 }

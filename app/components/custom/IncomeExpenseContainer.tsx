@@ -24,7 +24,7 @@ const IncomeExpenseContainer = (props: Props) => {
         borderRadius: 4,
         backgroundColor: colors.palette.neutral200,
         flexDirection: "row",
-        justifyContent: "center",
+        justifyContent: "flex-start",
         alignItems: "center",
         width: "48%",
       }}

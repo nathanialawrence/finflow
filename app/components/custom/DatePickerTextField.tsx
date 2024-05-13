@@ -1,5 +1,5 @@
+import { Keyboard, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import React, { useState } from "react"
-import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { colors, spacing, typography } from "../../theme"
 
 import DateTimePickerModal from "react-native-modal-datetime-picker"
@@ -21,6 +21,7 @@ export function DatePickerTextField(props: DatePickerTextFieldProps) {
   const [formattedDate, setFormattedDate] = useState<string>()
 
   const showDatePicker = () => {
+    Keyboard.dismiss()
     setDatePickerVisibility(true)
   }
 

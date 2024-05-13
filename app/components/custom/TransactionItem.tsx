@@ -5,6 +5,7 @@ import React from "react"
 import { Text } from "../general/Text"
 import { View } from "react-native"
 import { colors } from "../../theme"
+import { formatNumber } from "../../utils/formatter/formatTransactions"
 import moment from "moment"
 
 interface TransactionItemProps {
@@ -15,10 +16,22 @@ interface TransactionItemProps {
 
 export function TransactionItem(props: TransactionItemProps) {
   const { index, data, item } = props
-  const isSameDay = data[index - 1] ? item.date == data[index - 1].date : false
+  const prevItem = data[index - 1]
+  const isSameDay = prevItem && moment(item.date).isSame(prevItem.date, "day")
+  const isSameMonth = prevItem && moment(item.date).isSame(prevItem.date, "month")
 
   return (
     <>
+      {!isSameMonth && (
+        <View style={{ marginTop: 8 }}>
+          <Text
+            text={moment(item.date).format("MMMM YYYY")}
+            preset={"mono"}
+            size={"md"}
+            style={$dimText}
+          />
+        </View>
+      )}
       {!isSameDay && (
         <View style={{ marginVertical: 8 }}>
           <Text
@@ -54,7 +67,7 @@ export function TransactionItem(props: TransactionItemProps) {
           )}
         </View>
         <View style={{ alignItems: "flex-end", marginLeft: 4 }}>
-          <Text text={"Rp45.000"} preset={"monoSemiBold"} size={"xs"} />
+          <Text text={formatNumber(item.amount)} preset={"monoSemiBold"} size={"xs"} />
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{

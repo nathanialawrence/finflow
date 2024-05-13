@@ -8,13 +8,15 @@ import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navig
 import { TabNavigator, TabNavigatorParamList } from "./TabNavigator"
 
 import { AddTransactionScreen } from "../screens/transactions/AddTransactionScreen"
-import { LoginScreen } from "../screens/authentication/LoginScreen"
+import { ProfileScreen } from "../screens/authentication/ProfileScreen"
+import { WelcomeScreen } from "../screens/authentication/WelcomeScreen"
 import { colors } from "../theme/colors"
 import { navigationRef } from "./navigationUtilities"
 import { useColorScheme } from "react-native"
 
 export type AppStackParamList = {
-  Login: undefined
+  Welcome: undefined
+  Profile: undefined
   Tab: NavigatorScreenParams<TabNavigatorParamList>
   AddTransaction: undefined
 }
@@ -38,9 +40,10 @@ const AppStack = function AppStack() {
         headerShown: false,
         navigationBarColor: colors.background,
       }}
-      initialRouteName={"Login"}
+      initialRouteName={"Welcome"}
     >
-      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Welcome" component={WelcomeScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Tab" component={TabNavigator} />
       <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
     </Stack.Navigator>

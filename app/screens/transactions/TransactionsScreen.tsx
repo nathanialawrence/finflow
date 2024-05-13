@@ -11,14 +11,14 @@ import { Text } from "../../components/general/Text"
 import { Transaction } from "../../models/transactions/Transaction"
 import { TransactionItem } from "../../components/custom/TransactionItem"
 import { deleteAllTransactions } from "../../redux/actions/transactionsActions"
+import { transactionsSelector } from "../../redux/selectors/transactionsSelector"
 
 export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
   function TransactionsScreen(_props) {
     const { navigation } = _props
     const dispatch = useDispatch()
-    const transactions: Transaction[] = useSelector(
-      (state: any) => state.transactionsReducer.transactions,
-    )
+
+    const transactions: Transaction[] = useSelector(transactionsSelector)
 
     const onAddTransaction = () => {
       navigation.navigate("AddTransaction")
@@ -39,12 +39,12 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
             return <TransactionItem index={index} data={transactions} item={item} />
           }}
         />
-        {/* <Button
+        <Button
           text="Clear all transactions"
           onPress={() => {
             dispatch(deleteAllTransactions())
           }}
-        /> */}
+        />
         <AddTransactionButton onPress={onAddTransaction} />
       </Screen>
     )

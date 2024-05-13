@@ -12,6 +12,7 @@ import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux"
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 
 import AsyncStorage from "@react-native-async-storage/async-storage"
+import profileReducer from "../reducers/profileReducer"
 import transactionsReducer from "../reducers/transactionsReducer"
 
 const persistConfig = {
@@ -22,6 +23,7 @@ const persistConfig = {
 
 export const rootReducer = combineReducers({
   transactionsReducer,
+  profileReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

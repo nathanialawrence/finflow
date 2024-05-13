@@ -1,42 +1,106 @@
-import { Transaction } from "../../models/transactions/Transaction"
-import { TransactionActionType } from "../actions/transactionsActions"
+import {
+  TransactionAction,
+  TransactionActionTypes,
+  TransactionsState,
+} from "../types/transactionActionTypes"
 
-export interface TransactionsState {
-  transactions: Transaction[]
-}
+import { TransactionType } from "../../models/transactions/Transaction"
 
 export const initalTransactionState: TransactionsState = {
   transactions: [],
+  totalIncome: 0,
+  totalExpense: 0,
+  totalBalance: 0,
 }
 
 const transactionsReducer = (
   state: TransactionsState = initalTransactionState,
-  action: { type: TransactionActionType; payload?: any },
+  action: TransactionAction,
 ): TransactionsState => {
   switch (action.type) {
-    case TransactionActionType.AddTransaction:
-      // const newTransaction = { ...action.payload, id: uuidv4() }
+    case TransactionActionTypes.ADD_TRANSACTION:
       const newTransaction = { ...action.payload }
+      const sortedTransactions = [newTransaction, ...state.transactions].sort((a, b) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        return dateB.getTime() - dateA.getTime()
+      })
+      const totalIncome = sortedTransactions.reduce((acc, transaction) => {
+        if (transaction.type === TransactionType.Income) {
+          return acc + transaction.amount
+        } else {
+          return acc
+        }
+      }, 0)
+      const totalExpense = sortedTransactions.reduce((acc, transaction) => {
+        if (transaction.type === TransactionType.Expense) {
+          return acc + transaction.amount
+        } else {
+          return acc
+        }
+      }, 0)
       return {
         ...state,
-        transactions: [...state.transactions, newTransaction],
+        transactions: sortedTransactions,
+        totalIncome,
+        totalExpense,
+        totalBalance: totalIncome - totalExpense,
       }
-    case TransactionActionType.EditTransaction:
+    case TransactionActionTypes.EDIT_TRANSACTION:
+      const updatedTransaction = { ...action.payload }
+      const updatedTransactions = state.transactions.map((transaction) =>
+        transaction.id === updatedTransaction.id
+          ? { ...transaction, ...updatedTransaction }
+          : transaction,
+      )
+      const totalIncomeAfterEdit = updatedTransactions.reduce((acc, transaction) => {
+        if (transaction.type === TransactionType.Income) {
+          return acc + transaction.amount
+        } else {
+          return acc
+        }
+      }, 0)
+      const totalExpenseAfterEdit = updatedTransactions.reduce((acc, transaction) => {
+        if (transaction.type === TransactionType.Expense) {
+          return acc + transaction.amount
+        } else {
+          return acc
+        }
+      }, 0)
       return {
         ...state,
-        transactions: state.transactions.map((transaction) =>
-          transaction.id === action.payload.id
-            ? { ...transaction, ...action.payload }
-            : transaction,
-        ),
+        transactions: updatedTransactions,
+        totalIncome: totalIncomeAfterEdit,
+        totalExpense: totalExpenseAfterEdit,
+        totalBalance: totalIncomeAfterEdit - totalExpenseAfterEdit,
       }
-    case TransactionActionType.DeleteTransaction:
+    case TransactionActionTypes.DELETE_TRANSACTION:
+      const updatedTransactionsAfterDelete = state.transactions.filter(
+        (transaction) => transaction.id !== action.payload,
+      )
+      const totalIncomeAfterDelete = updatedTransactionsAfterDelete.reduce((acc, transaction) => {
+        if (transaction.type === TransactionType.Income) {
+          return acc + transaction.amount
+        } else {
+          return acc
+        }
+      }, 0)
+      const totalExpenseAfterDelete = updatedTransactionsAfterDelete.reduce((acc, transaction) => {
+        if (transaction.type === TransactionType.Expense) {
+          return acc + transaction.amount
+        } else {
+          return acc
+        }
+      }, 0)
       return {
         ...state,
-        transactions: state.transactions.filter((transaction) => transaction.id !== action.payload),
+        transactions: updatedTransactionsAfterDelete,
+        totalIncome: totalIncomeAfterDelete,
+        totalExpense: totalExpenseAfterDelete,
+        totalBalance: totalIncomeAfterDelete - totalExpenseAfterDelete,
       }
-    case TransactionActionType.DeleteAllTransactions:
-      return { ...state, transactions: [] }
+    case TransactionActionTypes.DELETE_ALL_TRANSACTIONS:
+      return { ...state, transactions: [], totalIncome: 0, totalExpense: 0, totalBalance: 0 }
     default:
       return state
   }

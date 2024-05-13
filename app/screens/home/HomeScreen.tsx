@@ -5,6 +5,11 @@ import {
 } from "../../core/styles/generalStyle"
 import { TextStyle, View } from "react-native"
 import { colors, spacing } from "../../theme"
+import {
+  totalBalanceSelector,
+  totalExpenseSelector,
+  totalIncomeSelector,
+} from "../../redux/selectors/transactionsSelector"
 
 import { AddTransactionButton } from "../../components/custom/AddTransactionButton"
 import { BalanceContainer } from "../../components/module/home/BalanceContainer"
@@ -13,9 +18,15 @@ import IncomeExpenseContainer from "../../components/custom/IncomeExpenseContain
 import { Screen } from "../../components/general/Screen"
 import { TabNavigatorScreenProps } from "../../navigators/TabNavigator"
 import { Text } from "../../components/general/Text"
+import { formatNumber } from "../../utils/formatter/formatTransactions"
+import { useSelector } from "react-redux"
 
 export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScreen(_props) {
   const { navigation } = _props
+
+  const totalBalance: number = useSelector(totalBalanceSelector)
+  const totalIncome: number = useSelector(totalIncomeSelector)
+  const totalExpense: number = useSelector(totalExpenseSelector)
 
   const onAddTransaction = () => {
     navigation.navigate("AddTransaction")
@@ -28,19 +39,19 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
         <Text text={"Nathania Lawrence"} preset={"monoSemiBold"} size={"xl"} style={$blueText} />
       </View>
       <View style={{ marginVertical: spacing.lg }}>
-        <BalanceContainer totalBalance={"Rp50.000.000"} />
+        <BalanceContainer totalBalance={formatNumber(totalBalance)} />
         <View style={$spaceBetweenContainer}>
           <IncomeExpenseContainer
             icon="income"
             iconColor={colors.palette.income}
             title={"Income"}
-            description={"Rp10.000.000"}
+            description={formatNumber(totalIncome)}
           />
           <IncomeExpenseContainer
             icon="expenses"
             iconColor={colors.palette.expense}
             title={"Expenses"}
-            description={"Rp10.000.000"}
+            description={formatNumber(totalExpense)}
           />
         </View>
       </View>

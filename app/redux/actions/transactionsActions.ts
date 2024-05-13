@@ -1,27 +1,21 @@
 import { Transaction } from "../../models/transactions/Transaction"
-
-export enum TransactionActionType {
-  AddTransaction = "ADD_TRANSACTION",
-  EditTransaction = "EDIT_TRANSACTION",
-  DeleteTransaction = "DELETE_TRANSACTION",
-  DeleteAllTransactions = "DELETE_ALL_TRANSACTIONS",
-}
+import { TransactionActionTypes } from "../types/transactionActionTypes"
 
 export const addTransaction = (transaction: Transaction) => ({
-  type: TransactionActionType.AddTransaction,
+  type: TransactionActionTypes.ADD_TRANSACTION,
   payload: transaction,
 })
 
 export const editTransaction = (transaction: Transaction) => ({
-  type: TransactionActionType.EditTransaction,
+  type: TransactionActionTypes.EDIT_TRANSACTION,
   payload: transaction,
 })
 
 export const deleteTransaction = (id: string) => ({
-  type: TransactionActionType.DeleteTransaction,
+  type: TransactionActionTypes.DELETE_TRANSACTION,
   payload: id,
 })
 
 export const deleteAllTransactions = () => ({
-  type: TransactionActionType.DeleteAllTransactions,
+  type: TransactionActionTypes.DELETE_ALL_TRANSACTIONS,
 })
