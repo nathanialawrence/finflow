@@ -35,7 +35,7 @@ export function TransactionItem(props: TransactionItemProps) {
       {!isSameDay && (
         <View style={{ marginVertical: 8 }}>
           <Text
-            text={moment(item.date).format("MMM Do YY")}
+            text={moment(item.date).format("MMM Do")}
             preset={"mono"}
             size={"xs"}
             style={$dimText}
@@ -62,9 +62,7 @@ export function TransactionItem(props: TransactionItemProps) {
           }}
         >
           <Text text={item.title} preset={"mono"} size={"xs"} />
-          {item.notes && (
-            <Text text={`Notes: ${item.notes}`} preset={"mono"} size={"xxxs"} style={$dimText} />
-          )}
+          {item.notes && <Text text={item.notes} preset={"mono"} size={"xxxs"} style={$dimText} />}
         </View>
         <View style={{ alignItems: "flex-end", marginLeft: 4 }}>
           <Text text={formatNumber(item.amount)} preset={"monoSemiBold"} size={"xs"} />

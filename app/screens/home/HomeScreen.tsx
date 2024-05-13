@@ -19,11 +19,13 @@ import { Screen } from "../../components/general/Screen"
 import { TabNavigatorScreenProps } from "../../navigators/TabNavigator"
 import { Text } from "../../components/general/Text"
 import { formatNumber } from "../../utils/formatter/formatTransactions"
+import { fullNameSelector } from "../../redux/selectors/profileSelector"
 import { useSelector } from "react-redux"
 
 export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScreen(_props) {
   const { navigation } = _props
 
+  const fullName = useSelector(fullNameSelector)
   const totalBalance: number = useSelector(totalBalanceSelector)
   const totalIncome: number = useSelector(totalIncomeSelector)
   const totalExpense: number = useSelector(totalExpenseSelector)
@@ -36,7 +38,7 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
     <Screen preset={"fixed"} contentContainerStyle={$screenContentContainer}>
       <View>
         <Text text={"Welcome back,"} preset={"mono"} size="xs" style={$title} />
-        <Text text={"Nathania Lawrence"} preset={"monoSemiBold"} size={"xl"} style={$blueText} />
+        <Text text={fullName} preset={"monoSemiBold"} size={"xl"} style={$blueText} />
       </View>
       <View style={{ marginVertical: spacing.lg }}>
         <BalanceContainer totalBalance={formatNumber(totalBalance)} />
