@@ -1,14 +1,16 @@
 import {
   $blueText,
+  $dimText,
   $screenContentContainer,
   $spaceBetweenContainer,
 } from "../../core/styles/generalStyle"
-import { TextStyle, View } from "react-native"
+import { FlatList, Pressable, TextStyle, View } from "react-native"
 import { colors, spacing } from "../../theme"
 import {
   totalBalanceSelector,
   totalExpenseSelector,
   totalIncomeSelector,
+  transactionsSelector,
 } from "../../redux/selectors/transactionsSelector"
 
 import { AddTransactionButton } from "../../components/custom/AddTransactionButton"
@@ -18,6 +20,8 @@ import IncomeExpenseContainer from "../../components/custom/IncomeExpenseContain
 import { Screen } from "../../components/general/Screen"
 import { TabNavigatorScreenProps } from "../../navigators/TabNavigator"
 import { Text } from "../../components/general/Text"
+import { Transaction } from "../../models/transactions/Transaction"
+import { TransactionItem } from "../../components/custom/TransactionItem"
 import { formatNumber } from "../../utils/formatter/formatTransactions"
 import { fullNameSelector } from "../../redux/selectors/profileSelector"
 import { useSelector } from "react-redux"
@@ -29,34 +33,58 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
   const totalBalance: number = useSelector(totalBalanceSelector)
   const totalIncome: number = useSelector(totalIncomeSelector)
   const totalExpense: number = useSelector(totalExpenseSelector)
+  const transactions: Transaction[] = useSelector(transactionsSelector)
 
   const onAddTransaction = () => {
     navigation.navigate("AddTransaction")
   }
 
+  const onChangeName = () => {
+    navigation.navigate("EditProfile")
+  }
+
   return (
     <Screen preset={"fixed"} contentContainerStyle={$screenContentContainer}>
-      <View>
-        <Text text={"Welcome back,"} preset={"mono"} size="xs" style={$title} />
-        <Text text={fullName} preset={"monoSemiBold"} size={"xl"} style={$blueText} />
-      </View>
-      <View style={{ marginVertical: spacing.lg }}>
-        <BalanceContainer totalBalance={formatNumber(totalBalance)} />
-        <View style={$spaceBetweenContainer}>
-          <IncomeExpenseContainer
-            icon="income"
-            iconColor={colors.palette.income}
-            title={"Income"}
-            description={formatNumber(totalIncome)}
-          />
-          <IncomeExpenseContainer
-            icon="expenses"
-            iconColor={colors.palette.expense}
-            title={"Expenses"}
-            description={formatNumber(totalExpense)}
-          />
-        </View>
-      </View>
+      <FlatList
+        data={transactions.slice(0, 10)}
+        contentContainerStyle={{ flexGrow: 1 }}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={() => {
+          return (
+            <View>
+              <View>
+                <Text text={"Welcome back,"} preset={"mono"} size="xs" style={$title} />
+                <Pressable onPress={onChangeName}>
+                  <Text text={fullName} preset={"monoSemiBold"} size={"xl"} style={$blueText} />
+                </Pressable>
+              </View>
+              <View style={{ marginTop: spacing.lg, marginBottom: spacing.md }}>
+                <BalanceContainer totalBalance={formatNumber(totalBalance)} />
+                <View style={$spaceBetweenContainer}>
+                  <IncomeExpenseContainer
+                    icon="income"
+                    iconColor={colors.palette.income}
+                    title={"Income"}
+                    description={formatNumber(totalIncome)}
+                  />
+                  <IncomeExpenseContainer
+                    icon="expenses"
+                    iconColor={colors.palette.expense}
+                    title={"Expenses"}
+                    description={formatNumber(totalExpense)}
+                  />
+                </View>
+              </View>
+              <Text text={"Latest Transactions"} preset={"monoSemiBold"} size={"xl"} />
+            </View>
+          )
+        }}
+        ListHeaderComponentStyle={{ marginBottom: 8 }}
+        renderItem={({ index, item }) => {
+          return <TransactionItem index={index} data={transactions} item={item} />
+        }}
+      />
       <AddTransactionButton onPress={onAddTransaction} />
     </Screen>
   )

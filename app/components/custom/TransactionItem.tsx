@@ -1,24 +1,36 @@
-import { Transaction, TransactionType } from "../../models/transactions/Transaction"
+import { TouchableOpacity, View } from "react-native"
+import {
+  Transaction,
+  TransactionCategory,
+  TransactionType,
+} from "../../models/transactions/Transaction"
 
 import { $dimText } from "../../core/styles/generalStyle"
 import React from "react"
 import { Text } from "../general/Text"
-import { View } from "react-native"
 import { colors } from "../../theme"
 import { formatNumber } from "../../utils/formatter/formatTransactions"
 import moment from "moment"
+import { navigate } from "../../navigators/navigationUtilities"
+import { transactionCategoryData } from "../../data/transactions/transactionCategoryData"
 
 interface TransactionItemProps {
   index: number
   data: Transaction[]
   item: Transaction
+  onTransactionPress: () => void
 }
 
 export function TransactionItem(props: TransactionItemProps) {
-  const { index, data, item } = props
+  const { index, data, item, onTransactionPress } = props
   const prevItem = data[index - 1]
   const isSameDay = prevItem && moment(item.date).isSame(prevItem.date, "day")
   const isSameMonth = prevItem && moment(item.date).isSame(prevItem.date, "month")
+
+  const getCategoryColor = (category: TransactionCategory) => {
+    const categoryData = transactionCategoryData.find((item) => item.value === category)
+    return categoryData ? categoryData.color : null
+  }
 
   return (
     <>
@@ -35,14 +47,14 @@ export function TransactionItem(props: TransactionItemProps) {
       {!isSameDay && (
         <View style={{ marginVertical: 8 }}>
           <Text
-            text={moment(item.date).format("MMM Do")}
+            text={moment(item.date).format("ddd Do")}
             preset={"mono"}
             size={"xs"}
             style={$dimText}
           />
         </View>
       )}
-      <View
+      <TouchableOpacity
         style={{
           borderLeftWidth: 4,
           paddingHorizontal: 8,
@@ -53,6 +65,7 @@ export function TransactionItem(props: TransactionItemProps) {
           justifyContent: "space-between",
           alignItems: "center",
         }}
+        onPress={onTransactionPress}
       >
         <View
           style={{
@@ -72,14 +85,14 @@ export function TransactionItem(props: TransactionItemProps) {
                 height: 8,
                 width: 8,
                 borderRadius: 16,
-                backgroundColor: colors.palette.accent500,
+                backgroundColor: getCategoryColor(item.category) ?? colors.palette.pale100,
                 marginRight: 4,
               }}
             />
             <Text text={item.category} preset={"mono"} size={"xxxs"} style={$dimText} />
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </>
   )
 }

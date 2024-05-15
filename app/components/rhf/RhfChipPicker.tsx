@@ -1,14 +1,15 @@
+import { ChipPicker, ChipPickerItem } from "../general/ChipPicker"
 import { Controller, useFormContext } from "react-hook-form"
 import React, { ComponentProps } from "react"
 
-import { ChipPicker } from "../general/ChipPicker"
-
 interface Props {
   name: string
+  defaultValue?: ChipPickerItem
 }
 
 export default function RhfChipPicker({
   name,
+  defaultValue,
   ...props
 }: Props & ComponentProps<typeof ChipPicker>) {
   const { control, setValue } = useFormContext()
@@ -16,12 +17,14 @@ export default function RhfChipPicker({
     <Controller
       control={control}
       name={name}
+      defaultValue={defaultValue}
       render={({ field: { onChange, value }, fieldState }) => {
         return (
           <ChipPicker
+            value={value}
             onSelect={(value) => {
-              setValue(name, value.value)
-              onChange(value.value)
+              setValue(name, value)
+              onChange(value)
             }}
             {...props}
           />

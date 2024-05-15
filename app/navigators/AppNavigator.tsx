@@ -8,7 +8,10 @@ import { NativeStackScreenProps, createNativeStackNavigator } from "@react-navig
 import { TabNavigator, TabNavigatorParamList } from "./TabNavigator"
 
 import { AddTransactionScreen } from "../screens/transactions/AddTransactionScreen"
+import { EditProfileScreen } from "../screens/authentication/EditProfileScreen"
+import { EditTransactionScreen } from "../screens/transactions/EditTransactionScreen"
 import { ProfileScreen } from "../screens/authentication/ProfileScreen"
+import { Transaction } from "../models/transactions/Transaction"
 import { WelcomeScreen } from "../screens/authentication/WelcomeScreen"
 import { colors } from "../theme/colors"
 import { navigationRef } from "./navigationUtilities"
@@ -17,8 +20,10 @@ import { useColorScheme } from "react-native"
 export type AppStackParamList = {
   Welcome: undefined
   Profile: undefined
+  EditProfile: undefined
   Tab: NavigatorScreenParams<TabNavigatorParamList>
   AddTransaction: undefined
+  EditTransaction: { transactionItem: Transaction }
 }
 
 /**
@@ -45,7 +50,9 @@ const AppStack = function AppStack() {
       <Stack.Screen name="Welcome" component={WelcomeScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="Tab" component={TabNavigator} />
+      <Stack.Screen name="EditProfile" component={EditProfileScreen} />
       <Stack.Screen name="AddTransaction" component={AddTransactionScreen} />
+      <Stack.Screen name="EditTransaction" component={EditTransactionScreen} />
     </Stack.Navigator>
   )
 }

@@ -1,11 +1,13 @@
 import * as yup from "yup"
 
+import { $dangerText, $screenContentContainer } from "../../core/styles/generalStyle"
+import { AppStackParamList, AppStackScreenProps } from "../../navigators/AppNavigator"
 import { FormProvider, useForm } from "react-hook-form"
 import React, { FC } from "react"
+import { RouteProp, useRoute } from "@react-navigation/native"
 import { TransactionCategory, TransactionType } from "../../models/transactions/Transaction"
+import { deleteTransaction, editTransaction } from "../../redux/actions/transactionsActions"
 
-import { $screenContentContainer } from "../../core/styles/generalStyle"
-import { AppStackScreenProps } from "../../navigators/AppNavigator"
 import { Button } from "../../components/general/Button"
 import RhfAmountTextField from "../../components/rhf/RhfAmountTextField"
 import RhfChipPicker from "../../components/rhf/RhfChipPicker"
@@ -14,27 +16,29 @@ import RhfTextField from "../../components/rhf/RhfTextField"
 import { Screen } from "../../components/general/Screen"
 import { Text } from "../../components/general/Text"
 import { View } from "react-native"
-import { addTransaction } from "../../redux/actions/transactionsActions"
 import { goBack } from "../../navigators/navigationUtilities"
+import { spacing } from "../../theme"
 import { transactionCategoryData } from "../../data/transactions/transactionCategoryData"
 import { transactionTypeData } from "../../data/transactions/transactionTypeData"
 import { useDispatch } from "react-redux"
-import uuid from "react-native-uuid"
 import { yupResolver } from "@hookform/resolvers/yup"
 
-interface AddTransactionScreenProps extends AppStackScreenProps<"AddTransaction"> {}
+interface EditTransactionScreen extends AppStackScreenProps<"EditTransaction"> {}
 
-export const AddTransactionScreen: FC<AddTransactionScreenProps> = function AddTransactionScreen(
+export const EditTransactionScreen: FC<EditTransactionScreen> = function EditTransactionScreen(
   _props,
 ) {
   const dispatch = useDispatch()
+
+  const route = useRoute<RouteProp<AppStackParamList, "EditTransaction">>()
+  const { transactionItem } = route.params
 
   const schema = yup
     .object({
       title: yup.string().required(),
       type: yup.string().required(),
       category: yup.string().required(),
-      amount: yup.number().min(1).required(),
+      amount: yup.number().required(),
       date: yup.string().required(),
       notes: yup.string(),
     })
@@ -44,21 +48,21 @@ export const AddTransactionScreen: FC<AddTransactionScreenProps> = function AddT
     mode: "onChange",
     reValidateMode: "onChange",
     defaultValues: {
-      title: "",
-      type: "",
-      category: "",
-      amount: undefined,
-      date: "",
-      notes: "",
+      title: transactionItem.title,
+      type: transactionItem.type,
+      category: transactionItem.category,
+      amount: transactionItem.amount,
+      date: transactionItem.date,
+      notes: transactionItem.notes,
     },
     resolver: yupResolver(schema),
   })
 
-  const handleAddTransaction = () => {
+  const handleUpdateTransaction = () => {
     console.log(JSON.stringify(method.getValues(), null, 2))
     const transaction = method.getValues()
-    const newTransaction = {
-      id: uuid.v4() as string,
+    const updatedTransaction = {
+      id: transactionItem.id,
       title: transaction.title,
       type: transaction.type as TransactionType,
       category: transaction.category as TransactionCategory,
@@ -66,14 +70,19 @@ export const AddTransactionScreen: FC<AddTransactionScreenProps> = function AddT
       date: transaction.date.toString(),
       notes: transaction.notes,
     }
-    dispatch(addTransaction(newTransaction))
+    dispatch(editTransaction(updatedTransaction))
+    goBack()
+  }
+
+  const handleDeleteTransaction = () => {
+    dispatch(deleteTransaction(transactionItem.id))
     goBack()
   }
 
   return (
     <Screen preset={"scroll"} contentContainerStyle={$screenContentContainer}>
       <View style={{ flex: 1 }}>
-        <Text text={"Add Transaction"} preset={"monoSemiBold"} size={"xl"} />
+        <Text text={"Update Transaction"} preset={"monoSemiBold"} size={"xl"} />
         <View style={{ marginVertical: 16 }}>
           <FormProvider {...method}>
             <RhfTextField
@@ -99,8 +108,14 @@ export const AddTransactionScreen: FC<AddTransactionScreenProps> = function AddT
           </FormProvider>
         </View>
         {method.formState.isValid && (
-          <Button text="Add Transaction" onPress={handleAddTransaction} />
+          <Button text="Update Transaction" onPress={handleUpdateTransaction} />
         )}
+        <View style={{ height: spacing.md }} />
+        <Button
+          text="Delete Transaction"
+          textStyle={$dangerText}
+          onPress={handleDeleteTransaction}
+        />
       </View>
     </Screen>
   )

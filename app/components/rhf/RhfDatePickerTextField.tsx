@@ -16,9 +16,10 @@ export default function RhfDatePickerTextField({
     <Controller
       control={control}
       name={name}
-      render={({ field: { onChange } }) => {
+      render={({ field: { onChange, value } }) => {
         return (
           <DatePickerTextField
+            value={value}
             onSelectDate={(value) => {
               setValue(name, value)
               onChange(value)

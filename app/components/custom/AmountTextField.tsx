@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import { Text } from "../general/Text"
 import { TextField } from "../general/TextField"
@@ -9,10 +9,11 @@ interface AmountTextFieldProps {
   required?: boolean
   placeholder?: string
   onChangeText?: (value: number) => void
+  value?: number
 }
 
 export function AmountTextField(props: AmountTextFieldProps) {
-  const { label, required = false, placeholder, onChangeText, ...rest } = props
+  const { label, required = false, placeholder, onChangeText, value, ...rest } = props
 
   const [formattedValue, setFormattedValue] = useState("")
 
@@ -23,6 +24,10 @@ export function AmountTextField(props: AmountTextFieldProps) {
     setFormattedValue(formattedText) // update formatted value
     onChangeText && onChangeText(originalValue)
   }
+
+  useEffect(() => {
+    if (value) handleTextChange(value.toString())
+  }, [value])
 
   return (
     <TextField

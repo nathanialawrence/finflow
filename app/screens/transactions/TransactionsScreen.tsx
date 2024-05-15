@@ -24,6 +24,10 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
       navigation.navigate("AddTransaction")
     }
 
+    const onTransactionPress = (transactionItem: Transaction) => {
+      navigation.navigate("EditTransaction", { transactionItem })
+    }
+
     return (
       <Screen preset={"fixed"} contentContainerStyle={$screenContentContainer}>
         <FlatList
@@ -36,15 +40,22 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
           ListHeaderComponentStyle={{ marginBottom: 8 }}
           showsVerticalScrollIndicator={false}
           renderItem={({ index, item }) => {
-            return <TransactionItem index={index} data={transactions} item={item} />
+            return (
+              <TransactionItem
+                index={index}
+                data={transactions}
+                item={item}
+                onTransactionPress={() => onTransactionPress(item)}
+              />
+            )
           }}
         />
-        <Button
+        {/* <Button
           text="Clear all transactions"
           onPress={() => {
             dispatch(deleteAllTransactions())
           }}
-        />
+        /> */}
         <AddTransactionButton onPress={onAddTransaction} />
       </Screen>
     )

@@ -17,7 +17,7 @@ export default function RhfAmountTextField({
       control={control}
       name={name}
       render={({ field: { onChange, value }, fieldState }) => {
-        return <AmountTextField onChangeText={onChange} {...props} />
+        return <AmountTextField value={value} onChangeText={onChange} {...props} />
       }}
     />
   )

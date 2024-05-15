@@ -16,7 +16,7 @@ const IncomeExpenseContainer = (props: Props) => {
   return (
     <View
       style={{
-        marginVertical: spacing.lg,
+        marginVertical: spacing.md,
         paddingVertical: spacing.xs,
         paddingHorizontal: spacing.sm,
         borderWidth: 1,

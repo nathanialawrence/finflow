@@ -1,5 +1,5 @@
 import { Keyboard, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { colors, spacing, typography } from "../../theme"
 
 import DateTimePickerModal from "react-native-modal-datetime-picker"
@@ -12,10 +12,11 @@ interface DatePickerTextFieldProps {
   required?: boolean
   placeholder?: string
   onSelectDate?: (value: any) => void
+  value?: any
 }
 
 export function DatePickerTextField(props: DatePickerTextFieldProps) {
-  const { label, required = false, placeholder, onSelectDate, ...rest } = props
+  const { label, required = false, placeholder, onSelectDate, value, ...rest } = props
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false)
   const [formattedDate, setFormattedDate] = useState<string>()
@@ -29,11 +30,22 @@ export function DatePickerTextField(props: DatePickerTextFieldProps) {
     setDatePickerVisibility(false)
   }
 
-  const handleConfirm = (value: any) => {
-    hideDatePicker()
+  const handleFormatDate = (value: string) => {
     setFormattedDate(moment(value).format("MMM Do YY"))
+  }
+
+  const handleConfirm = (value: any) => {
+    handleFormatDate(value)
+    hideDatePicker()
     onSelectDate && onSelectDate(value)
   }
+
+  useEffect(() => {
+    if (value) {
+      handleFormatDate(value)
+    }
+  }, [value])
+
   return (
     <View>
       <LabelText label={label} required={required} />
@@ -49,6 +61,7 @@ export function DatePickerTextField(props: DatePickerTextFieldProps) {
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
         mode="date"
+        date={value ? new Date(value) : undefined}
         onConfirm={handleConfirm}
         onCancel={hideDatePicker}
         accentColor={colors.palette.expense}

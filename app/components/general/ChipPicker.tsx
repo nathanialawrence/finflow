@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { colors, spacing, typography } from "../../theme"
 
@@ -15,19 +15,23 @@ interface ChipPickerProps {
   label: string
   required?: boolean
   data: ChipPickerItem[]
-  value?: ChipPickerItem
-  onSelect?: (value: ChipPickerItem) => void
+  value?: string
+  onSelect?: (value: string) => void
   selectedColor?: string
 }
 
 export function ChipPicker(props: ChipPickerProps) {
   const { label, required = false, data, value, onSelect, selectedColor, ...rest } = props
 
-  const [selectedItem, setSelectedItem] = useState<ChipPickerItem>()
+  const [selectedItem, setSelectedItem] = useState<string | undefined>(value ?? undefined)
+
+  useEffect(() => {
+    console.log("value: ", selectedItem)
+  }, [selectedItem])
 
   const handleSelect = (item: ChipPickerItem) => {
-    setSelectedItem(item)
-    onSelect && onSelect(item)
+    setSelectedItem(item.value)
+    onSelect && onSelect(item.value)
   }
 
   return (
@@ -41,7 +45,7 @@ export function ChipPicker(props: ChipPickerProps) {
               $chipContainer,
               {
                 borderColor:
-                  selectedItem === item
+                  selectedItem === item.value
                     ? item.color ?? colors.palette.blue800
                     : colors.palette.neutral400,
               },

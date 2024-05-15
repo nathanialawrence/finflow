@@ -53,14 +53,19 @@ const transactionsReducer = (
           ? { ...transaction, ...updatedTransaction }
           : transaction,
       )
-      const totalIncomeAfterEdit = updatedTransactions.reduce((acc, transaction) => {
+      const sortedUpdatedTransactions = updatedTransactions.sort((a, b) => {
+        const dateA = new Date(a.date)
+        const dateB = new Date(b.date)
+        return dateB.getTime() - dateA.getTime()
+      })
+      const totalIncomeAfterEdit = sortedUpdatedTransactions.reduce((acc, transaction) => {
         if (transaction.type === TransactionType.Income) {
           return acc + transaction.amount
         } else {
           return acc
         }
       }, 0)
-      const totalExpenseAfterEdit = updatedTransactions.reduce((acc, transaction) => {
+      const totalExpenseAfterEdit = sortedUpdatedTransactions.reduce((acc, transaction) => {
         if (transaction.type === TransactionType.Expense) {
           return acc + transaction.amount
         } else {
@@ -69,7 +74,7 @@ const transactionsReducer = (
       }, 0)
       return {
         ...state,
-        transactions: updatedTransactions,
+        transactions: sortedUpdatedTransactions,
         totalIncome: totalIncomeAfterEdit,
         totalExpense: totalExpenseAfterEdit,
         totalBalance: totalIncomeAfterEdit - totalExpenseAfterEdit,

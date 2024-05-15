@@ -21,6 +21,10 @@ export const $blueText: TextStyle = {
   color: colors.palette.blue800,
 }
 
+export const $dangerText: TextStyle = {
+  color: colors.palette.angry500,
+}
+
 export const $dimText: TextStyle = {
   color: colors.textDim,
 }
