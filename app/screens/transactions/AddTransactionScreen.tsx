@@ -55,7 +55,6 @@ export const AddTransactionScreen: FC<AddTransactionScreenProps> = function AddT
   })
 
   const handleAddTransaction = () => {
-    console.log(JSON.stringify(method.getValues(), null, 2))
     const transaction = method.getValues()
     const newTransaction = {
       id: uuid.v4() as string,

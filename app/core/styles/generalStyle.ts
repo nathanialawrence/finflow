@@ -17,6 +17,13 @@ export const $spaceBetweenContainer: ViewStyle = {
   justifyContent: "space-between",
 }
 
+export const $emptyStateContainer: ViewStyle = {
+  flex: 1,
+  justifyContent: "center",
+  alignItems: "center",
+  margin: 12,
+}
+
 export const $blueText: TextStyle = {
   color: colors.palette.blue800,
 }

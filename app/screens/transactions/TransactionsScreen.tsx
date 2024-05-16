@@ -1,22 +1,23 @@
+import {
+  $dimText,
+  $emptyStateContainer,
+  $screenContentContainer,
+} from "../../core/styles/generalStyle"
+import { FlatList, View } from "react-native"
 import React, { FC } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
-import { $screenContentContainer } from "../../core/styles/generalStyle"
 import { AddTransactionButton } from "../../components/custom/AddTransactionButton"
-import { Button } from "../../components/general/Button"
-import { FlatList } from "react-native"
 import { Screen } from "../../components/general/Screen"
 import { TabNavigatorScreenProps } from "../../navigators/TabNavigator"
 import { Text } from "../../components/general/Text"
 import { Transaction } from "../../models/transactions/Transaction"
 import { TransactionItem } from "../../components/custom/TransactionItem"
-import { deleteAllTransactions } from "../../redux/actions/transactionsActions"
 import { transactionsSelector } from "../../redux/selectors/transactionsSelector"
 
 export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
   function TransactionsScreen(_props) {
     const { navigation } = _props
-    const dispatch = useDispatch()
 
     const transactions: Transaction[] = useSelector(transactionsSelector)
 
@@ -49,13 +50,19 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
               />
             )
           }}
-        />
-        {/* <Button
-          text="Clear all transactions"
-          onPress={() => {
-            dispatch(deleteAllTransactions())
+          ListEmptyComponent={() => {
+            return (
+              <View style={$emptyStateContainer}>
+                <Text
+                  text={"You have no transactions yet."}
+                  preset={"mono"}
+                  size={"md"}
+                  style={[$dimText, { textAlign: "center" }]}
+                />
+              </View>
+            )
           }}
-        /> */}
+        />
         <AddTransactionButton onPress={onAddTransaction} />
       </Screen>
     )

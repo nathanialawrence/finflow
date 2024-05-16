@@ -1,49 +1,45 @@
 import { TransactionCategory } from "../../models/transactions/Transaction"
+import { colors } from "../../theme"
 
 export const transactionCategoryData = [
   {
     value: TransactionCategory.Bills,
     label: "Bills",
-    color: "#2196F3", // Blue
+    color: colors.palette.bills, // Blue
   },
   {
     value: TransactionCategory.Clothes,
     label: "Clothes",
-    color: "#9C27B0", // Purple
-  },
-  {
-    value: TransactionCategory.Education,
-    label: "Education",
-    color: "#03A9F4", // Cyan
+    color: colors.palette.clothes, // Purple
   },
   {
     value: TransactionCategory.Entertainment,
     label: "Entertainment",
-    color: "#F44336", // Red
+    color: colors.palette.entertainment, // Red
   },
   {
     value: TransactionCategory.Food,
     label: "Food",
-    color: "#FFC107", // Amber
+    color: colors.palette.food, // Amber
   },
   {
     value: TransactionCategory.Health,
     label: "Health",
-    color: "#8BC34A", // Light Green
-  },
-  {
-    value: TransactionCategory.Personal,
-    label: "Personal",
-    color: "#9E9E9E", // Gray
+    color: colors.palette.health, // Light Green
   },
   {
     value: TransactionCategory.Transportation,
     label: "Transportation",
-    color: "#4CAF50", // Green
+    color: colors.palette.transportation, // Green
+  },
+  {
+    value: TransactionCategory.Personal,
+    label: "Personal",
+    color: colors.palette.personal, // Gray
   },
   {
     value: TransactionCategory.Others,
     label: "Others",
-    color: "#FF9800", // Orange
+    color: colors.palette.others, // Orange
   },
 ]

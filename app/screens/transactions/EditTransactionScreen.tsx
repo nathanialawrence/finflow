@@ -59,7 +59,6 @@ export const EditTransactionScreen: FC<EditTransactionScreen> = function EditTra
   })
 
   const handleUpdateTransaction = () => {
-    console.log(JSON.stringify(method.getValues(), null, 2))
     const transaction = method.getValues()
     const updatedTransaction = {
       id: transactionItem.id,

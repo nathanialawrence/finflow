@@ -6,12 +6,14 @@ import { colors, spacing, typography } from "../theme"
 import { CompositeScreenProps } from "@react-navigation/native"
 import { HomeScreen } from "../screens/home/HomeScreen"
 import { Icon } from "../components/general/Icon"
+import { SettingsScreen } from "../screens/settings/SettingsScreen"
 import { TransactionsScreen } from "../screens/transactions/TransactionsScreen"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 
 export type TabNavigatorParamList = {
   Home: undefined
   Transactions: undefined
+  Settings: undefined
 }
 
 /**
@@ -54,7 +56,7 @@ export function TabNavigator() {
         options={{
           tabBarLabel: "Home",
           tabBarIcon: ({ focused }) => (
-            <Icon icon="components" color={focused ? colors.tint : undefined} size={30} />
+            <Icon icon="menu" color={focused ? colors.tint : undefined} size={30} />
           ),
         }}
       />
@@ -65,6 +67,16 @@ export function TabNavigator() {
           tabBarLabel: "Transactions",
           tabBarIcon: ({ focused }) => (
             <Icon icon="components" color={focused ? colors.tint : undefined} size={30} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsScreen}
+        options={{
+          tabBarLabel: "Settings",
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="debug" color={focused ? colors.tint : undefined} size={30} />
           ),
         }}
       />

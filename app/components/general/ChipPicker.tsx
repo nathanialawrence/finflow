@@ -25,10 +25,6 @@ export function ChipPicker(props: ChipPickerProps) {
 
   const [selectedItem, setSelectedItem] = useState<string | undefined>(value ?? undefined)
 
-  useEffect(() => {
-    console.log("value: ", selectedItem)
-  }, [selectedItem])
-
   const handleSelect = (item: ChipPickerItem) => {
     setSelectedItem(item.value)
     onSelect && onSelect(item.value)

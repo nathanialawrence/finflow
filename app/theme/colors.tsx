@@ -56,11 +56,19 @@ const palette = {
   darkBlue950: "#272D4E",
 
   income: "#5AA58E",
-
   expense: "#F0531C",
 
   overlay20: "rgba(25, 16, 21, 0.2)",
   overlay50: "rgba(25, 16, 21, 0.5)",
+
+  bills: "#ACC18A",
+  clothes: "#CCD5FF",
+  entertainment: "#E01A4F",
+  food: "#FAC748",
+  health: "#7CC6FE",
+  personal: "#3B4883",
+  transportation: "#00AA13",
+  others: "#837A75",
 } as const
 
 export const colors = {

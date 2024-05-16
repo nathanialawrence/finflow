@@ -1,6 +1,7 @@
 import {
   $blueText,
   $dimText,
+  $emptyStateContainer,
   $screenContentContainer,
   $spaceBetweenContainer,
 } from "../../core/styles/generalStyle"
@@ -43,6 +44,10 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
     navigation.navigate("EditProfile")
   }
 
+  const onTransactionPress = (transactionItem: Transaction) => {
+    navigation.navigate("EditTransaction", { transactionItem })
+  }
+
   return (
     <Screen preset={"fixed"} contentContainerStyle={$screenContentContainer}>
       <FlatList
@@ -76,13 +81,32 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
                   />
                 </View>
               </View>
-              <Text text={"Latest Transactions"} preset={"monoSemiBold"} size={"xl"} />
+              <Text text={"Latest Transactions"} preset={"monoSemiBold"} size={"lg"} />
             </View>
           )
         }}
         ListHeaderComponentStyle={{ marginBottom: 8 }}
         renderItem={({ index, item }) => {
-          return <TransactionItem index={index} data={transactions} item={item} />
+          return (
+            <TransactionItem
+              index={index}
+              data={transactions}
+              item={item}
+              onTransactionPress={() => onTransactionPress(item)}
+            />
+          )
+        }}
+        ListEmptyComponent={() => {
+          return (
+            <View style={$emptyStateContainer}>
+              <Text
+                text={"You have no recent transactions."}
+                preset={"mono"}
+                size={"md"}
+                style={[$dimText, { textAlign: "center" }]}
+              />
+            </View>
+          )
         }}
       />
       <AddTransactionButton onPress={onAddTransaction} />
