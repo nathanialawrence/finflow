@@ -1,8 +1,7 @@
 # finflow~
-================
 
 ## Overview
-finflow~ is a React Native expense tracker app that allows users to track their expenses locally using Redux.
+Welcome to finflow~. finflow~ is a React Native expense tracker app that allows users to track their expenses locally using Redux.
 
 ## Features
 * Track expenses with ease
