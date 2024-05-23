@@ -9,8 +9,8 @@ interface BalanceContainerProps {
 export function BalanceContainer(props: BalanceContainerProps) {
   return (
     <>
-      <Text text={"Balance"} preset={"mono"} size={"xs"} style={$dimText} />
-      <Text text={props.totalBalance} preset={"monoSemiBold"} size="xl" />
+      <Text text={"Balance"} preset={"default"} size={"xs"} style={$dimText} />
+      <Text text={props.totalBalance} preset={"semiBold"} size="xl" />
     </>
   )
 }

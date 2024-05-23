@@ -47,7 +47,7 @@ export const SettingsScreen: FC<TabNavigatorScreenProps<"Settings">> = function 
         contentContainerStyle={{ flexGrow: 1 }}
         keyExtractor={(item) => item.id}
         ListHeaderComponent={() => {
-          return <Text text={"Settings"} preset={"monoSemiBold"} size={"xl"} />
+          return <Text text={"Settings"} preset={"semiBold"} size={"xl"} />
         }}
         ListHeaderComponentStyle={{ marginBottom: 8 }}
         ItemSeparatorComponent={() => {
@@ -61,7 +61,7 @@ export const SettingsScreen: FC<TabNavigatorScreenProps<"Settings">> = function 
               color={colors.palette.neutral700}
               style={{ marginRight: 12 }}
             />
-            <Text text={item.name} preset={"mono"} size={"xs"} style={$dimText} />
+            <Text text={item.name} preset={"default"} size={"xs"} style={$dimText} />
           </TouchableOpacity>
         )}
       />

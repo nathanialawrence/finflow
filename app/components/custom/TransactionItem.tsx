@@ -4,14 +4,13 @@ import {
   TransactionCategory,
   TransactionType,
 } from "../../models/transactions/Transaction"
+import { colors, spacing } from "../../theme"
 
 import { $dimText } from "../../core/styles/generalStyle"
 import React from "react"
 import { Text } from "../general/Text"
-import { colors } from "../../theme"
 import { formatNumber } from "../../utils/formatter/formatTransactions"
 import moment from "moment"
-import { navigate } from "../../navigators/navigationUtilities"
 import { transactionCategoryData } from "../../data/transactions/transactionCategoryData"
 
 interface TransactionItemProps {
@@ -35,20 +34,20 @@ export function TransactionItem(props: TransactionItemProps) {
   return (
     <>
       {!isSameMonth && (
-        <View style={{ marginTop: 8 }}>
+        <View style={{ marginTop: spacing.xs }}>
           <Text
             text={moment(item.date).format("MMMM YYYY")}
-            preset={"mono"}
+            preset={"default"}
             size={"md"}
             style={$dimText}
           />
         </View>
       )}
       {!isSameDay && (
-        <View style={{ marginVertical: 8 }}>
+        <View style={{ marginVertical: spacing.xs }}>
           <Text
             text={moment(item.date).format("ddd Do")}
-            preset={"mono"}
+            preset={"default"}
             size={"xs"}
             style={$dimText}
           />
@@ -56,9 +55,9 @@ export function TransactionItem(props: TransactionItemProps) {
       )}
       <TouchableOpacity
         style={{
-          borderLeftWidth: 4,
-          paddingHorizontal: 8,
-          paddingVertical: 6,
+          borderLeftWidth: spacing.xxs,
+          paddingHorizontal: spacing.xs,
+          paddingVertical: spacing.xxs,
           borderColor:
             item.type == TransactionType.Expense ? colors.palette.expense : colors.palette.income,
           flexDirection: "row",
@@ -67,29 +66,25 @@ export function TransactionItem(props: TransactionItemProps) {
         }}
         onPress={onTransactionPress}
       >
-        <View
-          style={{
-            flex: 1,
-            alignItems: "flex-start",
-            marginRight: 4,
-          }}
-        >
-          <Text text={item.title} preset={"mono"} size={"xs"} />
-          {item.notes && <Text text={item.notes} preset={"mono"} size={"xxxs"} style={$dimText} />}
+        <View style={{ flex: 1, alignItems: "flex-start", marginRight: spacing.xxs }}>
+          <Text text={item.title} preset={"default"} size={"xs"} />
+          {item.notes && (
+            <Text text={item.notes} preset={"default"} size={"xxxs"} style={$dimText} />
+          )}
         </View>
-        <View style={{ alignItems: "flex-end", marginLeft: 4 }}>
-          <Text text={formatNumber(item.amount)} preset={"monoSemiBold"} size={"xs"} />
+        <View style={{ alignItems: "flex-end", marginLeft: spacing.xxs }}>
+          <Text text={formatNumber(item.amount)} preset={"semiBold"} size={"xs"} />
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <View
               style={{
-                height: 8,
-                width: 8,
-                borderRadius: 16,
+                height: spacing.xs,
+                width: spacing.xs,
+                borderRadius: spacing.md,
                 backgroundColor: getCategoryColor(item.category) ?? colors.palette.pale100,
-                marginRight: 4,
+                marginRight: spacing.xxs,
               }}
             />
-            <Text text={item.category} preset={"mono"} size={"xxxs"} style={$dimText} />
+            <Text text={item.category} preset={"default"} size={"xxxs"} style={$dimText} />
           </View>
         </View>
       </TouchableOpacity>

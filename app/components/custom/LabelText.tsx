@@ -1,9 +1,9 @@
-import { $labelStyle, $rowContainer } from "../../core/styles/generalStyle"
+import { colors, spacing } from "../../theme"
 
+import { $rowContainer } from "../../core/styles/generalStyle"
 import React from "react"
 import { Text } from "../general/Text"
 import { View } from "react-native"
-import { colors } from "../../theme"
 
 interface LabelTextProps {
   label: string
@@ -16,12 +16,12 @@ export function LabelText(props: LabelTextProps) {
   return (
     <>
       <View style={$rowContainer}>
-        <Text preset="formLabel" text={label} style={$labelStyle} />
+        <Text preset="formLabel" text={label} />
         {required && (
           <Text
             preset="formLabel"
             text={"*"}
-            style={[$labelStyle, { color: colors.error, marginLeft: 2 }]}
+            style={{ color: colors.error, marginLeft: spacing.xxxs }}
           />
         )}
       </View>

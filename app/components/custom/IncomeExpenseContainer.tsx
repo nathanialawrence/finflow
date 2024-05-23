@@ -1,6 +1,7 @@
 import { Icon, IconTypes } from "../general/Icon"
 import { colors, spacing } from "../../theme"
 
+import { $dimText } from "../../core/styles/generalStyle"
 import React from "react"
 import { Text } from "../general/Text"
 import { View } from "react-native"
@@ -31,22 +32,8 @@ const IncomeExpenseContainer = (props: Props) => {
     >
       <Icon icon={props.icon} color={props.iconColor} size={24} />
       <View style={{ paddingLeft: spacing.xs }}>
-        <Text
-          text={props.title}
-          preset="mono"
-          size="xxs"
-          style={{
-            color: colors.textDim,
-          }}
-        />
-        <Text
-          text={props.description}
-          preset="monoSemiBold"
-          size="xs"
-          style={{
-            color: colors.text,
-          }}
-        />
+        <Text text={props.title} preset="default" size="xxs" style={$dimText} />
+        <Text text={props.description} preset="semiBold" size="xs" style={{ color: colors.text }} />
       </View>
     </View>
   )

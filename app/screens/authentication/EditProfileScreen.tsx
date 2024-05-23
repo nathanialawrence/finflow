@@ -52,9 +52,9 @@ export const EditProfileScreen: FC<EditProfileScreenProps> = function EditProfil
       contentContainerStyle={[$screenContentContainer, { justifyContent: "space-between" }]}
     >
       <View>
-        <Text text={"Edit Profile"} preset={"monoSemiBold"} size={"xl"} />
+        <Text text={"Edit Profile"} preset={"semiBold"} size={"xl"} />
         <View style={[$rowContainer, { alignContent: "flex-start" }]}>
-          <Text preset={"mono"} size={"xs"} style={$dimText}>
+          <Text preset={"default"} size={"xs"} style={$dimText}>
             Change your display name below!
           </Text>
         </View>

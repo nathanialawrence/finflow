@@ -83,41 +83,12 @@ const $baseStyle: StyleProp<TextStyle> = [
   { color: colors.text },
 ]
 
-const $monoStyle: StyleProp<TextStyle> = [
-  $sizeStyles.sm,
-  $fontWeightStyles.normal,
-  { color: colors.text, fontFamily: typography.secondary.medium },
-]
-
-const $monoStyleSemiBold: StyleProp<TextStyle> = [
-  $sizeStyles.sm,
-  $fontWeightStyles.normal,
-  { color: colors.text, fontFamily: typography.secondary.semiBold },
-]
-
-const $monoStyleBold: StyleProp<TextStyle> = [
-  $sizeStyles.sm,
-  $fontWeightStyles.normal,
-  { color: colors.text, fontFamily: typography.secondary.bold },
-]
-
 const $formLabelStyle: StyleProp<TextStyle> = [
+  $baseStyle,
+  $fontWeightStyles.medium,
+  $sizeStyles.xs,
   {
-    fontFamily: typography.secondary.medium,
-    fontSize: 14,
     marginBottom: spacing.xs,
-    color: colors.text,
-  },
-]
-
-const $textFieldValue: StyleProp<TextStyle> = [
-  {
-    fontFamily: typography.secondary.normal,
-    color: colors.text,
-    fontSize: 14,
-    height: 24,
-    paddingVertical: 0,
-    paddingHorizontal: 0,
   },
 ]
 
@@ -125,11 +96,9 @@ const $presets = {
   default: $baseStyle,
   bold: [$baseStyle, $fontWeightStyles.bold] as StyleProp<TextStyle>,
   heading: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.bold] as StyleProp<TextStyle>,
-  mono: [$monoStyle, $sizeStyles.xxl] as StyleProp<TextStyle>,
-  monoBold: [$monoStyleBold, $sizeStyles.xxl] as StyleProp<TextStyle>,
-  monoSemiBold: [$monoStyleSemiBold, $sizeStyles.xxl] as StyleProp<TextStyle>,
+  semiBold: [$baseStyle, $sizeStyles.xxl, $fontWeightStyles.semiBold] as StyleProp<TextStyle>,
   subheading: [$baseStyle, $sizeStyles.lg, $fontWeightStyles.medium] as StyleProp<TextStyle>,
   formLabel: [$formLabelStyle] as StyleProp<TextStyle>,
   formHelper: [$baseStyle, $sizeStyles.sm, $fontWeightStyles.normal] as StyleProp<TextStyle>,
-  textFieldValue: [$textFieldValue] as StyleProp<TextStyle>,
+  textFieldValue: [$baseStyle, $sizeStyles.xs] as StyleProp<TextStyle>,
 }

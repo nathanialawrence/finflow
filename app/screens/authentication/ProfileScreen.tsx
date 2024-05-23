@@ -16,6 +16,7 @@ import RhfTextField from "../../components/rhf/RhfTextField"
 import { Screen } from "../../components/general/Screen"
 import { Text } from "../../components/general/Text"
 import { setFullName } from "../../redux/actions/profileActions"
+import { spacing } from "../../theme"
 import { useDispatch } from "react-redux"
 import { yupResolver } from "@hookform/resolvers/yup"
 
@@ -54,22 +55,22 @@ export const ProfileScreen: FC<ProfileScreenProps> = function WelcomeScreen(_pro
       contentContainerStyle={[$screenContentContainer, { justifyContent: "space-between" }]}
     >
       <View>
-        <Text text={"Profile"} preset={"monoSemiBold"} size={"xl"} />
+        <Text text={"Profile"} preset={"semiBold"} size={"xl"} />
         <View style={[$rowContainer, { alignContent: "flex-start" }]}>
           <Text>
-            <Text preset={"mono"} size={"xs"} style={$dimText}>
+            <Text preset={"default"} size={"xs"} style={$dimText}>
               Welcome to
             </Text>
-            <Text preset={"mono"} size={"xs"} style={$blueText}>
+            <Text preset={"default"} size={"xs"} style={$blueText}>
               {" "}
               finflow~
             </Text>
-            <Text preset={"mono"} size={"xs"} style={$dimText}>
+            <Text preset={"default"} size={"xs"} style={$dimText}>
               ! Can you please tell us your name before we continue?
             </Text>
           </Text>
         </View>
-        <View style={{ marginVertical: 16 }}>
+        <View style={{ marginVertical: spacing.md }}>
           <FormProvider {...method}>
             <RhfTextField
               name="fullName"

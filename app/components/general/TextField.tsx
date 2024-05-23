@@ -160,7 +160,7 @@ export const TextField = forwardRef(function TextField(props: TextFieldProps, re
         <TextInput
           ref={input}
           underlineColorAndroid={colors.transparent}
-          textAlignVertical="top"
+          textAlignVertical={TextInputProps.multiline ? "top" : "center"}
           placeholder={placeholderContent}
           placeholderTextColor={colors.textDim}
           {...TextInputProps}
@@ -190,7 +190,7 @@ const $defaultContainerStyle: TextStyle = {
 }
 
 const $labelStyle: TextStyle = {
-  fontFamily: typography.secondary.medium,
+  fontFamily: typography.primary.medium,
   fontSize: 14,
   marginBottom: spacing.xs,
 }
@@ -208,7 +208,7 @@ const $inputWrapperStyle: ViewStyle = {
 const $inputStyle: TextStyle = {
   flex: 1,
   alignSelf: "stretch",
-  fontFamily: typography.secondary.normal,
+  fontFamily: typography.primary.normal,
   color: colors.text,
   fontSize: 14,
   height: 24,

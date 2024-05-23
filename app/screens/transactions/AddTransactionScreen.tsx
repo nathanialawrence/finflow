@@ -16,6 +16,7 @@ import { Text } from "../../components/general/Text"
 import { View } from "react-native"
 import { addTransaction } from "../../redux/actions/transactionsActions"
 import { goBack } from "../../navigators/navigationUtilities"
+import { spacing } from "../../theme"
 import { transactionCategoryData } from "../../data/transactions/transactionCategoryData"
 import { transactionTypeData } from "../../data/transactions/transactionTypeData"
 import { useDispatch } from "react-redux"
@@ -72,8 +73,8 @@ export const AddTransactionScreen: FC<AddTransactionScreenProps> = function AddT
   return (
     <Screen preset={"scroll"} contentContainerStyle={$screenContentContainer}>
       <View style={{ flex: 1 }}>
-        <Text text={"Add Transaction"} preset={"monoSemiBold"} size={"xl"} />
-        <View style={{ marginVertical: 16 }}>
+        <Text text={"Add Transaction"} preset={"semiBold"} size={"xl"} />
+        <View style={{ marginVertical: spacing.md }}>
           <FormProvider {...method}>
             <RhfTextField
               name="title"

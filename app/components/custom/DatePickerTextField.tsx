@@ -1,6 +1,6 @@
-import { Keyboard, TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
+import { Keyboard, TouchableOpacity, View, ViewStyle } from "react-native"
 import React, { useEffect, useState } from "react"
-import { colors, spacing, typography } from "../../theme"
+import { colors, spacing } from "../../theme"
 
 import DateTimePickerModal from "react-native-modal-datetime-picker"
 import { LabelText } from "./LabelText"
@@ -51,9 +51,11 @@ export function DatePickerTextField(props: DatePickerTextFieldProps) {
       <LabelText label={label} required={required} />
       <TouchableOpacity style={$chipContainer} onPress={showDatePicker}>
         {formattedDate ? (
-          <Text style={$labelStyle}>{formattedDate}</Text>
+          <Text preset="default" size="xs">
+            {formattedDate}
+          </Text>
         ) : (
-          <Text style={[$labelStyle, { color: colors.textDim }]}>
+          <Text preset="default" size="xs" style={{ color: colors.textDim }}>
             {placeholder ?? "Choose date"}
           </Text>
         )}
@@ -78,10 +80,4 @@ const $chipContainer: ViewStyle = {
   borderRadius: 4,
   borderWidth: 1,
   borderColor: colors.palette.neutral400,
-}
-
-const $labelStyle: TextStyle = {
-  fontFamily: typography.secondary.normal,
-  color: colors.text,
-  fontSize: 14,
 }

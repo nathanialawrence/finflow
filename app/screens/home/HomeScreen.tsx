@@ -59,9 +59,9 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
           return (
             <View>
               <View>
-                <Text text={"Welcome back,"} preset={"mono"} size="xs" style={$title} />
+                <Text text={"Welcome back,"} preset={"default"} size="xs" style={$title} />
                 <Pressable onPress={onChangeName}>
-                  <Text text={fullName} preset={"monoSemiBold"} size={"xl"} style={$blueText} />
+                  <Text text={fullName} preset={"semiBold"} size={"xl"} style={$blueText} />
                 </Pressable>
               </View>
               <View style={{ marginTop: spacing.lg, marginBottom: spacing.md }}>
@@ -81,11 +81,11 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
                   />
                 </View>
               </View>
-              <Text text={"Latest Transactions"} preset={"monoSemiBold"} size={"lg"} />
+              <Text text={"Latest Transactions"} preset={"semiBold"} size={"lg"} />
             </View>
           )
         }}
-        ListHeaderComponentStyle={{ marginBottom: 8 }}
+        ListHeaderComponentStyle={{ marginBottom: spacing.xs }}
         renderItem={({ index, item }) => {
           return (
             <TransactionItem
@@ -101,7 +101,7 @@ export const HomeScreen: FC<TabNavigatorScreenProps<"Home">> = function HomeScre
             <View style={$emptyStateContainer}>
               <Text
                 text={"You have no recent transactions."}
-                preset={"mono"}
+                preset={"default"}
                 size={"md"}
                 style={[$dimText, { textAlign: "center" }]}
               />

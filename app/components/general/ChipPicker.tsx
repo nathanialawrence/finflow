@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { TextStyle, TouchableOpacity, View, ViewStyle } from "react-native"
 import { colors, spacing, typography } from "../../theme"
 
@@ -48,7 +48,9 @@ export function ChipPicker(props: ChipPickerProps) {
             ]}
             onPress={() => handleSelect(item)}
           >
-            <Text style={$labelStyle}>{item.label}</Text>
+            <Text preset="default" size="xs">
+              {item.label}
+            </Text>
           </TouchableOpacity>
         ))}
       </View>
@@ -68,10 +70,4 @@ const $chipContainer: ViewStyle = {
   marginRight: 10,
   borderWidth: 1,
   marginBottom: spacing.xs,
-}
-
-const $labelStyle: TextStyle = {
-  fontFamily: typography.secondary.normal,
-  color: colors.text,
-  fontSize: 14,
 }

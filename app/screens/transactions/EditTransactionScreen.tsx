@@ -81,8 +81,8 @@ export const EditTransactionScreen: FC<EditTransactionScreen> = function EditTra
   return (
     <Screen preset={"scroll"} contentContainerStyle={$screenContentContainer}>
       <View style={{ flex: 1 }}>
-        <Text text={"Update Transaction"} preset={"monoSemiBold"} size={"xl"} />
-        <View style={{ marginVertical: 16 }}>
+        <Text text={"Update Transaction"} preset={"semiBold"} size={"xl"} />
+        <View style={{ marginVertical: spacing.md }}>
           <FormProvider {...method}>
             <RhfTextField
               name="title"

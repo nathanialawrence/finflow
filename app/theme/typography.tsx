@@ -1,11 +1,11 @@
 const fonts = {
-  poppins: {
-    light: "Poppins-Light",
-    normal: "Poppins-Regular",
-    medium: "Poppins-Medium",
-    semiBold: "Poppins-SemiBold",
-    bold: "Poppins-Bold",
-  },
+  // poppins: {
+  //   light: "Poppins-Light",
+  //   normal: "Poppins-Regular",
+  //   medium: "Poppins-Medium",
+  //   semiBold: "Poppins-SemiBold",
+  //   bold: "Poppins-Bold",
+  // },
   monospace: {
     light: "IBMPlexMono-Light",
     normal: "IBMPlexMono-Regular",
@@ -23,13 +23,13 @@ export const typography = {
   /**
    * The primary font. Used in most places.
    */
-  primary: fonts.poppins,
+  primary: fonts.monospace,
   /**
    * An alternate font used for perhaps titles and stuff.
    */
-  secondary: fonts.monospace,
+  // secondary: fonts.monospace,
   /**
    * Lets get fancy with a monospace font!
    */
-  code: fonts.monospace,
+  // code: fonts.monospace,
 }

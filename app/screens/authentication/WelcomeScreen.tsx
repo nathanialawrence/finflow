@@ -31,8 +31,8 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = function WelcomeScreen(_pro
       contentContainerStyle={[$screenContentContainer, { justifyContent: "space-between" }]}
     >
       <View>
-        <Text text={"finflo~"} preset={"monoSemiBold"} style={$blueText} />
-        <Text text={"An expense tracker app."} preset={"mono"} size={"xs"} style={$dimText} />
+        <Text text={"finflo~"} preset={"semiBold"} style={$blueText} />
+        <Text text={"An expense tracker app."} preset={"default"} size={"xs"} style={$dimText} />
       </View>
       <Button text={"Continue"} preset={"default"} onPress={checkProfile} />
     </Screen>

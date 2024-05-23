@@ -5,7 +5,6 @@ import {
 } from "../../core/styles/generalStyle"
 import { FlatList, View } from "react-native"
 import React, { FC } from "react"
-import { useDispatch, useSelector } from "react-redux"
 
 import { AddTransactionButton } from "../../components/custom/AddTransactionButton"
 import { Screen } from "../../components/general/Screen"
@@ -14,6 +13,7 @@ import { Text } from "../../components/general/Text"
 import { Transaction } from "../../models/transactions/Transaction"
 import { TransactionItem } from "../../components/custom/TransactionItem"
 import { transactionsSelector } from "../../redux/selectors/transactionsSelector"
+import { useSelector } from "react-redux"
 
 export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
   function TransactionsScreen(_props) {
@@ -36,7 +36,7 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
           contentContainerStyle={{ flexGrow: 1 }}
           keyExtractor={(item) => item.id}
           ListHeaderComponent={() => {
-            return <Text text={"Transactions"} preset={"monoSemiBold"} size={"xl"} />
+            return <Text text={"Transactions"} preset={"semiBold"} size={"xl"} />
           }}
           ListHeaderComponentStyle={{ marginBottom: 8 }}
           showsVerticalScrollIndicator={false}
@@ -55,7 +55,7 @@ export const TransactionsScreen: FC<TabNavigatorScreenProps<"Transactions">> =
               <View style={$emptyStateContainer}>
                 <Text
                   text={"You have no transactions yet."}
-                  preset={"mono"}
+                  preset={"default"}
                   size={"md"}
                   style={[$dimText, { textAlign: "center" }]}
                 />

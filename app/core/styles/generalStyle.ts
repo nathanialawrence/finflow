@@ -1,5 +1,5 @@
 import { TextStyle, ViewStyle } from "react-native"
-import { colors, spacing, typography } from "../../theme"
+import { colors, spacing } from "../../theme"
 
 export const $rowContainer: ViewStyle = {
   flexDirection: "row",
@@ -34,10 +34,4 @@ export const $dangerText: TextStyle = {
 
 export const $dimText: TextStyle = {
   color: colors.textDim,
-}
-
-export const $labelStyle: TextStyle = {
-  fontFamily: typography.secondary.medium,
-  fontSize: 14,
-  marginBottom: spacing.xs,
 }
